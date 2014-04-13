@@ -69,10 +69,10 @@ $(document).ready(function() {
     socket.emit('rooms');
   }, 1000);
 
-  $('send-message').focus();
+  $('#send-message').focus();
 
-  $('send-form').submit(function() {
+  $('#send-form').submit(function(event) {
     processUserInput(chatApp, socket);
-    return false;
+    event.preventDefault();
   });
 });
