@@ -62,7 +62,7 @@ function joinRoom(socket, room) {
       }
     }
   usersInRoomSummary += '.';
-  socket.emit('message', { text: usersInRoomSummary })
+  socket.emit('message', { text: usersInRoomSummary });
   }
 }
 
