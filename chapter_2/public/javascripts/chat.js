@@ -17,7 +17,7 @@ Chat.prototype.changeRoom = function(room) {
 };
 
 Chat.prototype.processCommand = function(command) {
-  var words = command.splt(' ');
+  var words = command.split(' ');
 
   var command = words[0].substring(1, words[0].length).toLowerCase();
 
@@ -29,7 +29,7 @@ Chat.prototype.processCommand = function(command) {
       var room = words.join(' ');
       this.changeRoom(room);
       break;
-      
+
     case 'nick':
       words.shift();
       this.socket.emit('nameAttempt', name);
