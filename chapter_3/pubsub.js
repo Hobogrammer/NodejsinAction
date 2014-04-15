@@ -21,13 +21,32 @@ channel.on('leave', function(id) {
     channel.emit('broadcast', id, id + " has left the chat. \n");
 });
 
+channel.on('shutdown', function() {
+    channel.emit('broadcast', '', "Chat has shut down. \n");
+    channel.removeAllListeners('broadcast');
+});
+
 var server = net.createServer(function(client) {
     var id = client.remoteAddress + ':' + client.remotePort;
+
     client.on('connect', function() {
         channel.emit('join', id, client);
     });
+
     client.on('data', function(data) {
         data = data.toString();
+        channel.emit('broadcast', id, data);
+    });
+
+    client.on('close', function() {
+        channel.emit('leave', id);
+    });
+
+    client.on('data', function(data) {
+        data = data.toString();
+        if (data == "shutdown\r\n") {
+            channel.emit('shutdown');
+        }
         channel.emit('broadcast', id, data);
     });
 });
