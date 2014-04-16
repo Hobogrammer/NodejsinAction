@@ -52,7 +52,6 @@ var tasks = [
 ];
 
 function next(err, result) {
-     eval(locus);
     if (err) throw new Error(err);
 
     var currentTask = tasks.shift();
